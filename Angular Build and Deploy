@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+    stages {
+        stage('Init'){
+            steps{
+                sh("rm -r *")
+                sh("cp /home/Documents/Jenkins/Angular/script.sh .")
+                sh("cp -r /home/Documents/Jenkins/Angular/NewApp .")
+            }
+        }
+        stage('package installation'){
+            steps{
+                sh("cd NewApp && npm install")
+            }
+        }
+        stage('Build'){
+            steps{
+                sh("cd NewApp && npm run build --prod")
+            }
+        }
+        stage('Packaging'){
+            steps{
+                sh("cd NewApp/dist && zip -m post.zip ./NewApp/*")
+            }
+        }
+        stage('deploy'){
+            steps{
+                script{
+                        def remote = [:]
+                        remote.name = "EC2-Temp"
+                        remote.host = "1.1.1.1"
+                        remote.allowAnyHosts = true
+                        withCredentials([sshUserPrivateKey(credentialsId: 'EC2-Temp', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
+                        remote.user = userName
+                        remote.identityFile = identity
+                        stage("SSH Steps Rocks!") {
+                            writeFile file: 'abc.sh', text: 'ls'
+                            sshPut remote: remote, from: './NewApp/dist/post.zip', into: '.'
+                            sshPut remote: remote, from: 'script.sh', into: '.'
+                            sshScript remote: remote, script: 'script.sh'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
