@@ -4,6 +4,7 @@ aws ec2 create-security-group --group-name "My Tomcat" --description "Tomcat ser
 >> sg-07927c9c
 
 aws ec2 authorize-security-group-ingress --group-id sg-07927c9c --protocol tcp --port 8080 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id sg-07927c9c137024d0f --protocol tcp --port 80 --cidr 0.0.0.0/0
 
 Add Group to instance 
 aws ec2 modify-instance-attribute --instance-id i-01faedd2 --groups sg-07927c9
