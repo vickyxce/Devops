@@ -1,0 +1,9 @@
+Allow a host
+/usr/share/apache-tomcat-9.0.39/webapps/manager/META-INF/context.xml
+
+Change:
+<Context antiResourceLocking="false" privileged="true" >
+    <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+</Context>
+
+<Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1|192\.168\.0\.\d+" />
