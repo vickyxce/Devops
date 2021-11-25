@@ -7,3 +7,13 @@ Change:
 </Context>
 
 <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1|192\.168\.0\.\d+" />
+-------------------------
+User Configration
+sudo nano /usr/share/tomcat/conf/tomcat-users.xml
+
+<role rolename="admin-gui"/>
+<role rolename="manager-gui"/>
+<user username="admin" password="TomcatAdminP@ssw0rd" fullName="Administrator" roles="admin-gui,manager-gui"/>
+
+
+--------------------------
