@@ -15,5 +15,6 @@ sudo nano /usr/share/tomcat/conf/tomcat-users.xml
 <role rolename="manager-gui"/>
 <user username="admin" password="TomcatAdminP@ssw0rd" fullName="Administrator" roles="admin-gui,manager-gui"/>
 
-
+ <user username="tomcatmanager" password="password" roles="manager-gui"/>
+ <user username="deployer" password="password" roles="manager-script"/>
 --------------------------
